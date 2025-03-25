@@ -1,2 +1,2 @@
 # Dracula-Waybar
-A waybar config of dracula
+A waybar stylesheet and configuration file of the Dracula colorscheme
