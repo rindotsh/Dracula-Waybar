@@ -1,0 +1,157 @@
+{
+"layer": "top",
+"modules-left": ["niri/workspaces","niri/window"],
+"modules-center": ["clock"],
+"modules-right": ["temperature","tray","network","custom/vpn","pulseaudio","backlight","power-profiles-daemon","battery","custom/power"],
+
+//setting up stuff for waybar main
+	//niri-window
+	"niri/window": {
+	"max-length": 100
+	},
+	//niri-workspace
+	"niri/workspaces": {
+		"format": "{icon}",
+		"format-icons": {
+		// Named workspaces
+		// (you need to configure them in niri)
+		"browser": "",
+		"discord": "",
+		"chat": "<b></b>",
+		// Icons by state
+		"active": "",
+		"default": ""
+	}
+},
+	//power
+	"custom/power": {
+        "format" : "⏻ ",
+                "tooltip": false,
+                "menu": "on-click",
+                "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu >
+                "menu-actions": {
+                        "shutdown":"shutdown -h now",
+                        "reboot": "reboot",
+                        "suspend": "systemctl suspend",
+                        "hibernate": "systemctl hibernate"
+                }
+    },
+	//temperature
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+	//custom vpn module https://github.com/Alexays/Waybar/issues/3583
+	 "custom/vpn": {
+       "interval": 3,
+       "format": "{}",
+       "exec": "ip add show | grep -qF wg0 && echo  || echo  ",
+       "max-length": "100",
+       "on-click": "mullvad connect",
+       "on-click-right": "mullvad disconnect"
+    },	
+	//tray
+	    "tray": {
+        //"icon-size": 21,
+        "spacing": 5
+    },
+	//network
+	    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this inte>
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+	//ppd
+	"power-profiles-daemon": {
+	"format": "{icon}",
+	"tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+	"tooltip": true,
+	"format-icons": {
+        	"default": "",
+        	"performance": "",
+        	"balanced": "",
+        	"power-saver": ""
+      }
+    },
+	//pulseaudio 1
+	"pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
+        "format-muted": " ",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+     },
+	//backlight module
+	"backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+	"on-click": "brightnessctl set +50%",
+	"on-click-right": "brightnessctl set 50%-"
+	},
+	//battery module
+
+	"battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+      },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+      },
+	//clock module
+
+//	"clock": {
+//		"format-alt": "{:%a, %d. %b  %H:%M}"
+	"clock": {
+	"format": "{:%H:%M}",
+	"format-alt": "{:%A, %B %d, %Y (%R)}",
+	"tooltip-format": "<tt><small>{calendar}</small></tt>",
+	"calendar": {
+		"mode"          : "year",
+		"mode-mon-col"  : 3,
+		"weeks-pos"     : "right",
+		"on-scroll"     : 1,
+		"on-click-right": "mode",
+		"format": {
+			"months":     "<span color='#ffead3'><b>{}</b></span>",
+			"days":       "<span color='#f8f8f2'><b>{}</b></span>",
+			"weeks":      "<span color='#bd93f9'><b>{}</b></span>",
+			"weekdays":   "<span color='#8be9fd'><b>{}</b></span>",
+			"today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+		}
+	},
+	"actions": {
+		"on-click-right": "mode",
+		"on-click-forward": "tz_up",
+		"on-click-backward": "tz_down",
+		"on-scroll-up": "shift_up",
+		"on-scroll-down": "shift_down"
+		}
+	}
+}
