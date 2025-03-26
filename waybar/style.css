@@ -24,7 +24,10 @@ window#waybar{
 	padding-right: 10px;
 }
 #battery {
-	/*padding: 0 10px;*/
+	padding-right: 11px;
+}
+#battery.charging, #battery.plugged {
+	padding-right: 10px;
 }
 #custom-power {
 	padding-right: 0px;
