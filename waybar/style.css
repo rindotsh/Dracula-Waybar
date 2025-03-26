@@ -44,6 +44,12 @@ window#waybar{
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
+#pulseaudio.muted{
+	padding-right: 0px;
+}
+#pulseaudio {
+	padding-right: 10px;
+}
 /* middle */
 #clock {
 	padding: 0 10px;
